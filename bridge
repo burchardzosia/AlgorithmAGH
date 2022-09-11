@@ -1,0 +1,34 @@
+# algorithm for finding a bridge in a graph
+
+import math
+
+def DFS(G):
+    def DFS_visited(v,G,visited,processed):
+        nonlocal value
+        nonlocal time
+        nonlocal parent
+        time+=1
+        visited[v]=time
+        processed[v]=visited[v]
+        for u in G[v]:
+            if visited[u]==False:
+
+                parent[u]=v
+                DFS_visited(u,G,visited,processed)
+                processed[v]=min(processed[u],processed[v])
+            elif parent[v]!=u:
+                processed[v]=min(visited[u],processed[v])
+
+    time=0
+    processed=[math.inf for i in range(len(G))]
+    visited=[False for i in range(len(G))]
+    parent=[None for j in range(len(G))]
+    value=[3,5,7,1,9,2,3]
+    for v in range(len(G)):
+        if visited[v]==False:
+            DFS_visited(v,G,visited,processed)
+    result=[]
+    for i in range(len(G)):
+        if processed[i]==visited[i] and parent[i]!=None:
+            result.append(i)
+    return result
