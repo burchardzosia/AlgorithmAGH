@@ -1,0 +1,50 @@
+
+#every city is surrounded by a wall which is located two gates: the north and south 
+#If we go to city by one bridge we have to leave by another
+#we have to write algorythm which checks if leaving one of the city, we can visited every city only one and come back to the first city
+# we can return the list of visited cities
+    def DFS_visit(G, v, go):
+        nonlocal q, tab
+        q.append(v)
+        visited[v] = True
+        if go in G[v][0]:
+            a = G[v][1]
+        else:
+            a = G[v][0]
+
+        if len(q) == len(G) and 0 in a:
+            for m in range(len(G)):
+                tab[m] = q[m]
+            return True
+
+        for i in a:
+            if not visited[i]:
+                if DFS_visit(G, i, v):
+                    return True
+
+        q.remove(v)
+        visited[v] = False
+        return False
+
+    tab = [0 for _ in range(len(G))]
+    q = []
+    visited = [False for _ in range(len(G))]
+    go = G[0][1][0]
+    flag = DFS_visit(G, 0, go)
+    if tab[len(tab)-1] in G[0][1]:
+        flag=False
+    if flag==True and len(tab)!=len(G):
+        flag=False
+    tab = [0 for _ in range(len(G))]
+    q = []
+    visited = [False for _ in range(len(G))]
+    if not flag:
+        go = G[0][0][0]
+        flag = DFS_visit(G, 0, go)
+        if tab[len(tab) - 1] in G[0][1]:
+            flag = False
+        if flag == True and len(tab) != len(G):
+            flag = False
+
+
+    if flag: return tab
