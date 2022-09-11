@@ -25,3 +25,11 @@ def dijkstra_algorithm(graph, source):
                     queue.put((dist + graph[u][v], v))
         visited[u] = True
     return parent, distance
+ graph = [[0, 7, 8,9],
+         [7, 0, 3,4],
+         [8, 3, 0,8],[9,4,8,0]]
+    parent, distance = dijkstra_algorithm(graph, 0)
+    i = len(parent) - 1
+    while parent[i] is not None:
+        print(i, distance[i])
+        i -= 1
