@@ -1,0 +1,85 @@
+
+#we have binary tree, the tree is pretty when every leaves is located on the same level. Width od tree is number of leaves and the high is the number of location of leaves(root is on the 0 level)
+#we have to return minimal number of edges which we have to remove to create pretty tree, which have the largest width and the higher is the largest among the trees with maximal width
+
+class Node:
+  def __init__( self ):
+    self.left = None    # lewe poddrzewo
+    self.right = None   # prawe poddrzewo
+    self.x = None       # pole do wykorzystania przez studentow
+
+def zapisywanie(A,licznik):
+    licznik=licznik+1
+    A.x=licznik
+    if A.left is not None:
+        zapisywanie(A.left,licznik)
+    if A.right is not None:
+        zapisywanie(A.right,licznik)
+
+def max_poziom(A,tablica):
+    tablica.append(A.x)
+    if A.left is not None:
+        max_poziom(A.left,tablica)
+    if A.right is not None:
+        max_poziom(A.right,tablica)
+
+def drzewo_budowa(A,licznik,drzewo):
+    if A.left is not None:
+        if A.left.x==licznik:
+            drzewo.append(A.left)
+        A.left.x=A
+        drzewo_budowa(A.left,licznik,drzewo)
+    if A.right is not None:
+        if A.right.x==licznik:
+            drzewo.append(A.right)
+        A.right.x=A
+        drzewo_budowa(A.right,licznik,drzewo)
+def szukanie_korzenia(A,minimalne_drzewo):
+    if A in minimalne_drzewo:
+        pass
+    else:
+        minimalne_drzewo.append(A)
+    if A.x != 0:
+        szukanie_korzenia(A.x,minimalne_drzewo)
+def ucinanie(minimalne_drzewo,tab,A):
+    if A.right is not None:
+        if A.right in minimalne_drzewo:
+            ucinanie(minimalne_drzewo,tab,A.right)
+        else:
+            tab.append(0)
+
+    if A.left is not None:
+        if A.left in minimalne_drzewo:
+            ucinanie(minimalne_drzewo,tab,A.left)
+
+        else:
+            tab.append(0)
+
+def wideentall(T):
+    print(T)
+    zapisywanie(T,-1)
+    tablica=[]
+    max_poziom(T,tablica)
+    maksi=0
+    for i in range(len(tablica)):
+        if tablica[i]>maksi:
+            maksi=tablica[i]
+    wyliczanie=[0 for _ in range(maksi+1)]
+    for i in range(len(tablica)):
+        wyliczanie[tablica[i]]+=1
+
+
+    licznik=0
+    for i in range(len(wyliczanie)):
+        if i>0 and wyliczanie[i]>=licznik:
+            zapisany_indeks=i
+            licznik=wyliczanie[i]
+    drzewo=[]
+    drzewo_budowa(T,zapisany_indeks,drzewo)
+    minimalne_drzewo=[]
+
+    for i in drzewo:
+        szukanie_korzenia(i,minimalne_drzewo)
+    tab=[]
+    ucinanie(minimalne_drzewo,tab,T)
+    return len(tab)
