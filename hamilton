@@ -1,0 +1,55 @@
+#searching hamilton path
+def road( G ):
+    def DFS_visit(G, v, go):
+        nonlocal q
+        nonlocal Flag
+        q.append(v)
+        visited[v] = True
+        if go in G[v][0]:
+            a = G[v][1]
+        else:
+            a = G[v][0]
+        for i in a:
+            if visited[i] == False:
+                parent[i] = v
+                DFS_visit(G, i, v)
+
+        if len(q) == len(G) and v==0:
+            if Flag==False:
+                    for m in range(len(G)):
+                        tab[m]=q[m]
+                    Flag=True
+        q.remove(v)
+        visited[v] = False
+
+    Flag = False
+    q = []
+    visited = [False for i in range(len(G))]
+    parent = [None for i in range(len(G))]
+
+    for i in G[0][0]:
+        tab = [0 for i in range(len(G))]
+        go = 0
+        DFS_visit(G, i, go)
+        if Flag == True:
+            return tab
+        else:
+            for j in G[0][1]:
+                tab = [0 for i in range(len(G))]
+                go=0
+                DFS_visit(G,j,go)
+                if Flag == True:
+                    return tab
+                else:
+                    return None
+
+
+
+
+
+
+if __name__ == '__main__':
+    G=[([1], [3]), ([2], [0]), ([3], [1]), ([0], [2])]
+    print(road(G))
+
+
