@@ -15,4 +15,6 @@ def bfs_double(G,z,b):
                     visited[i]=True
                     q.put(i)
     return False
+G=[[2,3],[3],[4,1,0],[],[1],[]]
+    print(bfs_double(G,0,4))
 
