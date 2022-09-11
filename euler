@@ -1,0 +1,36 @@
+#searching euler path in graph
+def dfs(G):
+    def DFS_visit(G, v, parent,wynikowa):
+        nonlocal time
+        nonlocal licznik
+        nonlocal ilosc
+        nonlocal Flag
+        time=time+1
+        for i in G[v]:
+            G[v].remove(i)
+            G[i].remove(v)
+            parent[i] = v
+            DFS_visit(G, i, parent,wynikowa)
+
+
+        wynikowa.append(v)
+    time=0
+    Flag=True
+    wynikowa=[]
+    licznik=0
+    ilosc=len(G[0])
+    parent=[None for j in range(len(G))]
+
+    DFS_visit(G,0,parent,wynikowa)
+
+    print(wynikowa)
+
+
+
+
+
+
+if __name__ == '__main__':
+    G=[[1,2],[0,2,3,4],[0,1,3,4],[1,2,4,5],[1,2,3,5],[4,3]]
+    dfs(G)
+
