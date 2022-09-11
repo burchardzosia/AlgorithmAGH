@@ -1,0 +1,17 @@
+#if the given number can be composed of numbers appearing in the array
+
+def find(tab,x):
+    i=0
+    j=len(tab)-1
+    while i<j and i>=0 and j<len(tab):
+        if tab[i]+tab[j]<x:
+            i=i+1
+        if tab[i]+tab[j]==x:
+            return True
+        if tab[i]+tab[j]>x:
+            j+=1
+    return False
+if __name__ == "__main__":
+    tab=[1,3,4,5]
+    if find(tab,2):
+        print("znaleziono podana liczbe")
