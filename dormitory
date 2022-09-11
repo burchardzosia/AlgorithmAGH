@@ -1,0 +1,57 @@
+
+#Investor want to build new dormitory estate
+#Investor have to choose the best option 
+#Every buiding is represented by rectangle of height (h) and base with beginning in a and ending in b and praise of building. 
+#in this building may live h*(b-a) students
+#The number "P" means limit of the praise which we can spent to building dormitory
+#Function should return table with numbers of buildings that do not attract each other
+#We have to build  estate in which the most students can live
+def select_buildings(T,p):
+    def prawy(a):
+        nonlocal T
+        return T[a][2]
+
+    tab_indeksow = [i for i in range(len(T))]
+    tab_indeksow.sort(key=prawy)
+    z=[[0 for i in range(p+1)]for j in range(len(T))]
+    F=[[0 for i in range(p+1)]for j in range(len(T))]
+    indeks = tab_indeksow[0]
+    for b in range(T[indeks][3],p+1):
+        F[0][b]=T[indeks][0]*(T[indeks][2]-T[indeks][1])
+        z[0][b]=T[indeks][2]
+    for b in range(p+1):
+        for i in range(1,len(T)):
+            F[i][b]=F[i-1][b]
+            z[i][b]=z[i-1][b]
+            indeks = tab_indeksow[i]
+            if b>=T[indeks][3]:
+                k=0
+                for j in range(i-1,-1,-1):
+                    if z[j][b-T[indeks][3]]<T[indeks][1]:
+                        k = F[j][b - T[indeks][3]]
+                        break
+                k+=(T[indeks][2] - T[indeks][1]) * T[indeks][0]
+                a=F[i][b]
+                if k>a:
+                    z[i][b]=T[indeks][2]
+                    F[i][b]=k
+
+    w=len(T)-1
+    k=p
+    s=F[w][k]
+    tab_wynikowa=[]
+    while s>0:
+        value = F[w][k]
+        while w >= 0 and value == F[w][k]:
+            w-=1
+        w+=1
+        indeks = tab_indeksow[w]
+        tab_wynikowa.append(indeks)
+        s-=(T[indeks][2]-T[indeks][1])*T[indeks][0]
+        k-=T[indeks][3]
+        a=T[indeks][1]
+        w -= 1
+        while w>=0 and z[w][k] >= a:
+            w-=1
+
+    return tab_wynikowa
