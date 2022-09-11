@@ -1,0 +1,52 @@
+import queue
+from math import inf
+
+# we have graph and two_mile shoes - special kind of graph move, by this shoes we can to overcome the road with two edges so as if there was only one by the cost of one edge(maks of one and two edge)
+#we can use the shoes twice in a row
+# return the shortest path between s and t
+
+def relax(u, v, distance,id,G):
+    if distance[v][0]> distance[u][id] + G[u][v]:
+        distance[v][0] = distance[u][id] + G[u][v]
+        return True
+    return False
+def relax2(u,v,distance,id,G,i):
+    if distance[i][1]>distance[u][0]+max(G[u][v],G[v][i]):
+        distance[i][1] = distance[u][0] + max(G[u][v], G[v][i])
+        return True
+    return False
+
+def jumper(G,s,w):
+    visited=[[False for i in range(2)]for j in range(len(G))]
+    distance=[[inf for i in range(2)]for j in range(len(G))]
+    q = queue.PriorityQueue()
+    distance[s][0]=0
+    distance[s][1]=0
+    q.put((0, s, 0))
+    q.put((0,s,1))
+    while not q.empty():
+        x=q.get()
+        u=x[1]
+        id=x[2]
+        for v in range(len(G)):
+            if G[u][v]!=0:
+                if not visited[v][0] and relax(u, v, distance,id,G):
+                    q.put((distance[v][0],v,0))
+                if id==0:
+                    for i in range(len(G)):
+                        if G[v][i] and i!=u:
+                            if not visited[i][1] and relax2(u,v,distance,1,G,i):
+                                q.put((distance[i][0],i,1))
+
+        visited[u][id]=True
+    mini=inf
+    for i in range(2):
+        if mini>distance[w][i]:
+            mini=distance[w][i]
+    return mini
+G = [[0, 1, 0, 0, 0],
+     [1, 0, 1, 0, 0],
+     [0, 1, 0, 7, 0],
+     [0, 0, 7, 0, 8],
+     [0, 0, 0, 8, 0]]
+print(jumper(G,0,4))
