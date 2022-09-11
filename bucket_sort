@@ -33,5 +33,8 @@ def bucketsort(tab,k):
     for i in range(slot_number):
         for j in range(len(L[i])):
             tab[k] = L[i][j]
+ x = [11.961, 39.982, 38.089, 35.236, 5.564, 31.890, 52.127, 57.967, 56.989, 52.525, 4.659, 8.877, 67.556, 62.388, 8.654]
+ bucketsort(x,10)
+ print(x)
             k += 1
     return tab
