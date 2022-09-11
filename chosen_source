@@ -1,0 +1,18 @@
+#the problem is can we go to the chosen source
+from queue import Queue
+def bfs_double(G,z,b):
+    licznik=0
+    q=Queue()
+    visited=[False for i in range(len(G))]
+    q.put(0)
+    visited[0]=True
+    while not q.empty():
+        u=q.get()
+        if u==b:
+            return True
+        for i in G[u]:
+            if visited[i]==False:
+                    visited[i]=True
+                    q.put(i)
+    return False
+
