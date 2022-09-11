@@ -1,0 +1,13 @@
+def find(t, el):  # gj
+    n = len(t)
+    p = 0
+    k = n - 1
+    while p <= k:
+        sr = (p + k) // 2
+        if t[sr] == el:
+            return sr
+        elif t[sr] < el:
+            p = sr + 1
+        else:
+            k = sr - 1
+    return -1
