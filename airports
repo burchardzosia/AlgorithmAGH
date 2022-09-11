@@ -1,0 +1,51 @@
+
+The smallest distance between sources s and t, apart from the praise between sources, we can built the aiport, we pay then by the aiport in source a and airport in b
+from queue import PriorityQueue
+import math
+def relax(graph,u,v,distance,parent):
+    if distance[v]>distance[u]+graph[u][v]:
+        distance[v]=distance[u]+graph[u][v]
+        parent[v]=u
+        return True
+    return False
+
+
+def lotniska(graph,source,t):
+    queue=PriorityQueue()
+    queue.put((0,source))
+    visited=[False]*len(graph)
+    parent=[None]*len(graph)
+    distance=[math.inf]*len(graph)
+    distance[source]=0
+    while not queue.empty():
+        dist,u=queue.get()
+        for v in range(len(graph[u])):
+                if graph[u][v]!=0 and not visited[v]:
+                    if relax(graph,u,v,distance,parent):
+                        queue.put((distance[u]+graph[u][v],v))
+
+        visited[u]=True
+    return distance[t]
+
+def airports(G,A,s,t):
+    tablica=[[math.inf for i in range(len(G))]for j in range(len(G))]
+    tab=[]
+    for i in range(len(G)):
+        for j in range(len(G[i])):
+                a=G[i][j][0]
+                tab.append(a)
+        for k in range(len(G)):
+            if k not in tab:
+                G[i].append((k,A[k]+A[i]))
+
+        tab=[]
+
+    for i in range(len(G)):
+        for j in range(len(G[i])):
+                a = G[i][j][0]
+                if a!=i:
+                    tablica[i][a]=G[i][j][1]
+                else:
+                    tablica[i][a]=math.inf
+
+    return lotniska(tablica,s,t)
