@@ -1,0 +1,35 @@
+#our task is having in our backpack the most valuable items, 
+# we have maximum of weight of  our items
+#we have the list of praises every item and list of weight
+import math
+class item:
+    def __init__(self,id,value,weight):
+        self.id=id
+        self.value=value
+        self.weight=weight
+
+
+def f(t,n,w,result):
+    if n<0:
+        return 0
+    if result[n][w]==0:
+        if w-t[n].weight>=0:
+            a=max(t[n].value+f(t,n-1,w-t[n].weight,result),f(t,n-1,w,result))
+            result[n][w]=a
+        else:
+
+            a=f(t,n-1,w,result)
+            result[n][w]=a
+    return result[n][w]
+
+if __name__ == '__main__':
+    a=item(0,3,10)
+    b=item(1,4,6)
+    c=item(2,4,2)
+    t=[a,b,c]
+    n=len(t)
+    w=8
+    result=[[0 for i in range(9)]for j in range(n)]
+    k=f(t,n-1,w,result)
+    print(k)
+    print(result)
