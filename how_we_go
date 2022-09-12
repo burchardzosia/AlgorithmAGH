@@ -1,0 +1,71 @@
+#we want to go from source a to source b
+#there are gas stations at some of the sources
+#the value of kilometers between source a and b is G[a][b]
+#one kilometer-one liter of petrol
+#P-source with gas station
+#d-tank capacity
+#to get from top x to y we need to have enough gas in the tank
+import queue
+from math import inf
+def relax(G,u,v,distance,actual_bak,bak,parent):
+    if distance[v][actual_bak]>distance[u][bak]+G[u][v]:
+        distance[v][actual_bak]=distance[u][bak]+G[u][v]
+        parent[v][actual_bak]=(u,bak)
+        return True
+    return False
+
+def how_we_go(G,P,d,a,b):
+    visited=[[False for i in range(d+1)]for j in range(len(G))]
+    distance=[[inf for i in range(d+1)]for j in range(len(G))]
+    q=queue.PriorityQueue()
+    distance[a][d]=0
+    q.put((0, a, d))
+    parent=[[None for i in range(d+1)]for j in range(len(G))]
+    while not q.empty():
+        x=q.get()
+        u=x[1]
+        previus=x[2]
+        bak=x[2]
+        if u in P:
+            bak=d
+        for v in range(len(G)):
+            actual_bak=bak-G[u][v]
+            if G[u][v]!=-1 and actual_bak>=0:
+                if not visited[v][actual_bak] and relax(G,u,v,distance,actual_bak,previus,parent):
+                        q.put((distance[v][actual_bak],v,actual_bak))
+        visited[u][bak]=True
+    min_distance=inf
+    parent_min=inf
+    for i in range(d+1):
+        if distance[b][i]<min_distance:
+            min_distance=distance[b][i]
+            parent_min=i
+    if parent_min==inf:
+        print("none")
+        return 0
+
+    tuple=parent[b][parent_min]
+
+
+    result=[b]
+    while tuple!=None:
+        y=tuple[0]
+        z=tuple[1]
+        tuple=parent[y][z]
+        result.append(y)
+    result.reverse()
+    print(result)
+
+
+
+
+
+G = [[-1, 6,-1, 5, 2],
+[-1,-1, 1, 2,-1],
+[-1,-1,-1,-1,-1],
+[-1,-1, 4,-1,-1],
+[-1,-1, 8,-1,-1]]
+P = [0,1,3]
+how_we_go(G,P,5,0,2)
+
+
