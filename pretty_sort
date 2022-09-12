@@ -1,0 +1,62 @@
+#A single digit is one that appears exactly in the given number
+#we say that the number one is prettier that number two when in number one  there is more single digit, but when the number of single digit is the same in numbers, prettier number is the number with less mulitiple digits
+def single(n):
+    tab=[0 for i in range(10)]
+    sum=0
+    while n!=0:
+        number=n%10
+        if tab[number]==0:
+            sum+=1
+            tab[number]=1
+        elif tab[number]==1:
+             sum-=1
+             tab[number]=-1
+        n=n//10
+
+    return sum
+
+def number_of_digits(n):
+    number=0
+    while n!=0:
+        number+=1
+        n=n//10
+    return number
+def sort_len(b):
+        for i in range(1, len(b)):
+            up = b[i]
+            j = i - 1
+            while j >= 0 and number_of_digits(b[j]) > number_of_digits(up):
+                b[j + 1] = b[j]
+                j -= 1
+            b[j + 1] = up
+        return b
+def prettysort(T):
+    tab=[]
+    maks=0
+    for i in range(len(T)):
+        number=number_of_digits(T[i])
+        if number>maks:
+            maks=number
+    i=0
+    for i in range(maks+1):
+        tab.append([])
+    i=0
+    for i in T:
+        indeks=single(i)
+        tab[indeks].append(i)
+
+
+    for z in range(maks+1):
+        tab[z] = sort_len(tab[z])
+
+    k = 0
+    for i in range(maks+1):
+        for j in range(len(tab[i])):
+            T[k] = tab[i][j]
+            k += 1
+    return T
+if __name__ == '__main__':
+    T=[45563,5632,1233553,98,456232,63,989]
+    T=prettysort(T)
+    print(T)
+
