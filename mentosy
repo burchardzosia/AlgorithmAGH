@@ -1,0 +1,35 @@
+#we have list of value
+#we are playing with another gamer, we choose one value from front or back of the list and we add to our sum, next opponent do it too,
+#gaming opponent is optimal
+#our sum should be as big as possible
+def mentosy(tab,i,j,n):
+    if i==j-1:
+        if tab[i]>tab[j]:
+            return tab[i]
+        else:
+            return tab[j]
+    else:
+        if i+2<n and j-2>=0:
+            return max(tab[i] + min(mentosy(tab, i + 2, j, n), mentosy(tab, i + 1, j - 1, n)),
+                       tab[j] + min(mentosy(tab, i + 1, j - 1, n),mentosy(tab,i,j-2,n)))
+
+
+        elif i+2<n and  j-1>=0:
+            return max(tab[i] + min(mentosy(tab, i + 2, j,n), mentosy(tab, i + 1, j - 1,n)),
+                       tab[j] +  mentosy(tab, i + 1, j - 1,n))
+
+        elif i+2<n:
+            return tab[i] + mentosy(tab, i + 2, j,n)
+        elif i+1<n and j-2>=0:
+            return max(tab[i] + mentosy(tab, i + 1, j - 1,n),
+                       tab[j] + min(mentosy(tab, i, j - 2,n), mentosy(tab, i + 1, j - 1,n)))
+        elif i+1<n and j-1>=0:
+            return max(tab[i] +  mentosy(tab, i + 1, j - 1,n),
+                       tab[j] +  mentosy(tab, i + 1, j - 1,n))
+        elif i+1<n:
+            return tab[i] + mentosy(tab, i + 2, j,n)
+
+if __name__ == '__main__':
+    tab=[1,75,9,5,67,12,98,1,4]
+    a=mentosy(tab,0,7,8)
+    print(a)
