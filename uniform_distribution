@@ -1,0 +1,34 @@
+#uniform distribution sort
+def insertionSort(b):
+    for i in range(1, len(b)):
+        up = b[i]
+        j = i - 1
+        while j >= 0 and b[j] > up:
+            b[j + 1] = b[j]
+            j -= 1
+        b[j + 1] = up
+    return b
+def SortTab(T,P):
+    maks = 0
+    for i in range(len(T)):
+        if maks < T[i]:
+            maks = T[i]
+    slot_number = int(maks)+2
+
+    L = []
+    for i in range(slot_number):
+        L.append([])
+
+    for j in T:
+        indeks = int(j)
+        L[indeks].append(j)
+
+    for z in range(slot_number):
+        L[z] = insertionSort(L[z])
+
+    k = 0
+    for i in range(slot_number):
+        for j in range(len(L[i])):
+            T[k] = L[i][j]
+            k += 1
+    return T
