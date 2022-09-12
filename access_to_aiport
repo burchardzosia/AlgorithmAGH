@@ -47,7 +47,7 @@ def airports(G,A,s,t):
                     table[i][a]=G[i][j][1]
                 else:
                     table[i][a]=math.inf
-    return lotniska(tablica,s,t)
+    return lotniska(table,s,t)
 
 
 if __name__ == "__main__":
