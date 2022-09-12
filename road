@@ -1,0 +1,24 @@
+ we get table (n*n) we search minimal road from (0,0) to (n,n)
+def funkcja(tab,x,y,m,n):
+    if tab[x][y]==-1:
+        return 0
+    else:
+        if x-1>=0 and tab[x-1][y]!=0  and y-1>=0 and tab[x][y-1]!=0:
+            a=min(funkcja(tab, x - 1, y, m, n)+tab[x-1][y],funkcja(tab,x,y-1,m,n)+tab[x][y-1])
+            return a
+        elif x-1>=0 and tab[x-1][y]!=0:
+            a= funkcja(tab, x - 1, y, m, n)+tab[x-1][y]
+            return a
+        elif y-1>=0 and tab[x][y-1]!=0:
+            a= funkcja(tab,x,y-1,m,n)+tab[x][y-1]
+            return a
+
+    
+if __name__ == '__main__':
+    x=1
+    y=1
+    m=2
+    n=2
+    tab=[[-1,8],[5,2]]
+    a=funkcja(tab,x,y,m,n)+tab[len(tab)-1][len(tab)-1]
+    print(a)
