@@ -1,32 +1,32 @@
 #the most numerous anagram
 def f(T):
-    maks_rozmiar = 0
+    maks_size = 0
     for i in T:
-        rozmiar = len(i)
-        if rozmiar > maks_rozmiar:
-            maks_rozmiar = rozmiar
+        size = len(i)
+        if size > maks_size:
+            maks_size = size
     tab = []
-    for i in range(maks_rozmiar + 2):
+    for i in range(maks_size + 2):
         tab.append([])
     i = 0
     for i in T:
-        rozmiar = len(i)
-        tab[rozmiar].append(i)
+        size = len(i)
+        tab[size].append(i)
 
     l = []
     i = 0
     flag = False
     plr = 0
     max_plr = 0
-    for i in range(maks_rozmiar + 1):
+    for i in range(maks_size + 1):
         for j in range(len(tab[i])):
-            nasza_tablica = popularnosc(tab[i][j])
+            our_table = popular(table[i][j])
 
-            for k in nasza_tablica:
+            for k in our_table:
                 if k != 0:
                     flag = True
             if flag == True:
-                l.append(nasza_tablica)
+                l.append(our_table)
             flag = False
 
         for t in range(len(l)):
@@ -39,12 +39,12 @@ def f(T):
         l=[]
     return max_plr+1
 
-def popularnosc(tab):
-    tablica = []
+def popular(tab):
+    table = []
     for i in range(26):
-        tablica.append(0)
+        table.append(0)
     for i in tab:
         for j in i:
             indeks = ord(j) - ord("a")
-            tablica[indeks] += 1
-    return (tablica)
+            table[indeks] += 1
+    return (table)
