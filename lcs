@@ -1,0 +1,24 @@
+#Longest Common Subsequence
+def lcs(x,y):
+    m=len(x)
+    n=len(y)
+    tab=[[0 for i in range(n)] for i in range(m)]
+    for i in range(1,m):
+        for j in range(1,n):
+            if x[i]==y[j]:
+                tab[i][j]=tab[i-1][j-1]+1
+            elif tab[i-1][j]>=tab[i][j-1]:
+                tab[i][j]=tab[i-1][j]
+            else:
+                tab[i][j]=tab[i][j-1]
+    if x[0]==y[0]:
+        return tab[len(x)-1][len(y)-1]+1
+
+    return tab[len(x)-1][len(y)-1]
+
+
+
+if __name__ == '__main__':
+    x=[3,5,8,2,2,1,4,4,2,2]
+    y=[3,8,1,4,6,2,2]
+    print(lcs(x,y))
