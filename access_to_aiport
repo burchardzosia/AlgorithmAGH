@@ -1,5 +1,5 @@
 #on first we get list of tuples, every means that we can bulid road between cities for the given cost, In every city we can build aiport for the given cost-k
-#every city should habe an access to the aiport
+#every city should have an access to the aiport
 import math
 from queue import PriorityQueue
 def relax(graph,u,v,distance,parent):
