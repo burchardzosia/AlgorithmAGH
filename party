@@ -1,0 +1,42 @@
+#party is permissible when any employee who go to the party will not meet his employer. The value of the corporate event is the sum of fun factor  all invited guests
+#we are searching the most value party
+
+class employee:
+    def __init__ (self,fun):
+        self.fun=fun
+        self.emp=[]
+        self.f=0
+        self.g=0
+
+def gupa(v):
+    if v.g!=0:
+        return v.g
+
+    for u in v.emp:
+        v.g+=f(u)
+
+    a=v.g
+
+    return a
+
+def f(v):
+    if v.f!=0:
+        return v.f
+
+    f1=gupa(v)
+    f2=v.fun
+    for u in v.emp:
+        f2+=gupa(u)
+    v.f+=v.fun
+    v.f=max(f1,f2)
+
+    return v.f
+
+
+if __name__ == '__main__':
+    v=employee(30)
+    g=employee(20)
+    d=employee(10)
+    c= employee(10)
+    v.emp=[g,c,d]
+    a=f(v)
