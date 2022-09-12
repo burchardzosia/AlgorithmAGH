@@ -1,0 +1,17 @@
+#dag
+#how much is possible path to the end of graph
+
+def reku(graph,i):
+    sum=0
+    if i==4:
+        return 1
+    for j in range(len(graph[i])):
+
+        sum+=reku(graph,graph[i][j])
+        a=sum
+
+    return sum
+
+if __name__ == "__main__":
+    graph=[[1,2],[3],[3,4],[4],[]]
+    print(reku(graph,0))
