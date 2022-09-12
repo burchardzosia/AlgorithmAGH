@@ -1,9 +1,10 @@
 
-#In a certain city, which is located N cities, connected every city to a highway network,so as to be possible to reach to every city
+#In a certain country, which is located N cities, connected every city to a highway network,so as to be possible to reach to every city
 #every city is represented by x and y and distance between cities is counted (x1-x2) +(y1-y2) 
 #The object is minimalize the time between openning first highway and the last one.
 #The time of building every highway is expressed by the ceiling of the length of the highway
-
+#every highway was began built in the same time
+import math
 class Node:
     def __init__(self, value):
         self.parent=self
@@ -39,34 +40,34 @@ def highway(A):
             y1=A[i][1]
             y2=A[j][1]
 
-            czas=math.ceil(math.sqrt((x1-x2)**2+(y1-y2)**2))
-            G.append((i,j,czas))
+            time=math.ceil(math.sqrt((x1-x2)**2+(y1-y2)**2))
+            G.append((i,j,time))
     tab=[]
     for i in range(V):
         tab.append(Node(i))
 
     G.sort(key=lambda x: x[2])
-    ostateczna=math.inf
+    finnal=math.inf
     for i in range(E-V+2):
-        min_waga = G[i][2]
-        if G[i+V-2][2]-min_waga >= ostateczna: continue
+        min_weight = G[i][2]
+        if G[i+V-2][2]-min_weight >= finnal: continue
         union(tab[G[i][0]], tab[G[i][1]])
         n = 1
         flag = True
         for j in range(i+1, E):
             if union(tab[G[j][0]], tab[G[j][1]]):
-                roznica = G[j][2] - min_waga
+                diff = G[j][2] - min_weight
                 n += 1
-                if roznica >= ostateczna:
+                if diff >= finnal:
                     flag = False
                     break
                 if n == V-1: break
 
         if flag:
-            if n < V-1: return ostateczna
-            ostateczna=roznica
+            if n < V-1: return finnal
+            finnal=diff
 
         for x in tab:
             x.parent=x
             x.rank=0
-    return ostateczna
+    return finnal
