@@ -1,5 +1,5 @@
 
-#we have binary tree, the tree is pretty when every leaves is located on the same level. Width od tree is number of leaves and the high is the number of location of leaves(root is on the 0 level)
+#we have binary tree, the tree is pretty when every leaves is located on the same level. Width of tree is number of leaves and the high is the number of location of leaves(root is on the 0 level)
 #we have to return minimal number of edges which we have to remove to create pretty tree, which have the largest width and the higher is the largest among the trees with maximal width
 
 class Node:
