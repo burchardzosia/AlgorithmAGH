@@ -1,0 +1,77 @@
+#we have the list made up of numbers. 
+#we say that list is k-chaotic, when for every element after sorting would be in position differing by a maximum of k
+#we should sort our list
+def left(i):
+    return 2 * i + 1
+
+
+def right(i):
+    return 2 * i + 2
+
+
+def parent(i):
+    return (i - 1) // 2
+
+def heapify(tab, n, i):
+    l = left(i)
+    r = right(i)
+    max_ind = i
+
+    if l < n and tab[l] < tab[max_ind]:
+        max_ind = l
+
+    if r < n and tab[r] < tab[max_ind]:
+        max_ind = r
+    if max_ind != i:
+        temp = tab[i]
+        tab[i] = tab[max_ind]
+        tab[max_ind] = temp
+        heapify(tab, n, max_ind)
+
+
+def build(tab):
+    for i in range(len(tab) - 1, -1, -1):
+        heapify(tab, len(tab), i)
+
+
+def SortH(p, k):
+    if k!=1:
+        tab = []
+        i = 0
+        while p is not None and i < k + 1:
+            i = i + 1
+            tab.append(p.val)
+            p = p.next
+        build(tab)
+
+        q = Node()
+        first = q
+        while p is not None:
+            q.next = Node()
+            q.next.val = tab[0]
+            q = q.next
+            tab[0] = p.val
+            heapify(tab, len(tab), 0)
+            p = p.next
+
+        while len(tab) != 0:
+            q.next = Node()
+            q.next.val = tab[0]
+            q = q.next
+            tab[0] = tab[len(tab) - 1]
+            del tab[len(tab) - 1]
+            heapify(tab, len(tab), 0)
+
+        first = first.next
+        return first
+
+    else:
+        first=p
+        while p.next is not None:
+            if p.val > p.next.val:
+                temp = p.next.val
+                p.next.val = p.val
+                p.val = temp
+
+            p = p.next
+        return first
