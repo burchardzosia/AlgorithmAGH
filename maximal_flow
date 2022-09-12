@@ -1,7 +1,7 @@
 #in one city was discoverd new fuel deposits
 #decision was building  factory in two cities to purifaction new fuel
 #factories must not be places of extraction
-#alorithm choose two cities in which shoud build a factory to have maximal profit od clean fuel
+#alorithm choose two cities in which shoud build a factory to have maximal profit of clean fuel
 #every connect has a specific bandwidth 
 #s-city with new fuel
 #every pipeline is written like-(first city with pipeline start, second city with pipeline end, bandwidth of pipeline)
