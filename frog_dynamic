@@ -1,0 +1,47 @@
+# maks the frog have to go through the desert
+#in the some place located are stains of fuel
+#one liter is burnt on 1 km
+#to go this desert he has to stop in some of this place(too have fuel)
+#road is very dangerous, and he has to stop as little as possible
+#his capacity is bery big
+#we get list, where tab[1] means that in first place is one liter of fuel, we have to go on lenght of list place
+#one kilometer is the distance beetween n-1 place and n
+#we return a number of stop alloys
+import math
+
+def frog_dynamic(tab,table):
+    for i in range(tab[0]+1):
+        table[0][i]=0
+    for i in range(1,len(table)):
+        for j in range(len(table)):
+            z=j
+            minimum=math.inf
+            for k in range(i-1,-1,-1):
+                if z+1<len(table):
+                    z=z+1
+                    if table[k][z]!=math.inf:
+                        if k>=1 and z-(i-k)>=0:
+                            a=table[k][z]
+                            result=a
+                        else:
+                            b=table[k][z]+1
+                            result=b
+
+                        if result<minimum:
+                            table[i][j]=result
+                            minimum=result
+
+        while table[i][k]!=math.inf:
+            k=k+1
+        for g in range(k,k+tab[i]):
+            table[i][g]=table[i][k-1]+1
+    mini=math.inf
+    for i in range(len(table)):
+        if table[len(tablica)-1][i]<mini:
+            mini=table[len(table)-1][i]
+    return mini
+
+if __name__ == '__main__':
+    tab=[3,1,2,1,0,0]
+    tablica=[[math.inf for i in range(len(tab))]for j in range(len(tab))]
+    print(frog_dynamic(tab,tablica))
