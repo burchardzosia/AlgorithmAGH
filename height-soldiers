@@ -1,0 +1,41 @@
+#we get list of height of soldiers, and two number a,b
+#we return height of soldiers which after sorting our list will be on the position a-b
+def partition(A, p, r):
+    x=A[r]
+    i=p-1
+    for j in range(p,r):
+        if A[j]<=x:
+            i+=1
+            temp=A[j]
+            A[j]=A[i]
+            A[i]=temp
+    temp=A[i+1]
+    A[i+1]=A[r]
+    A[r]=temp
+    return i+1
+def select(tab,p,k,f):
+    if p==f:
+       return tab
+    if p<k:
+        q=partition(tab,p,k)
+        if q==f:
+            return tab
+        elif q<f:
+            return select(tab,q+1,k,f)
+        else:
+            return select(tab,p,q-1,f)
+def height(tab,f,l):
+    table=[]
+    select(tab,0,len(tab)-1,f)
+    for i in range(f,len(tab)):
+        table.append(tab[i])
+    select(tab,0,len(tab)-1,l)
+    result=[]
+    for i in range(0,l):
+        if tab[i] in table:
+            result.append(tab[i])
+    print(result)
+
+if __name__ == "__main__":
+    tab=[158,5, 160,1,11,23,98,1,45,14]
+    height(tab,1,5)
