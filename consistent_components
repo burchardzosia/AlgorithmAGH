@@ -1,0 +1,47 @@
+#finding consistent components
+def DFS(G,A):
+    def DFS_visited(v,G,visited):
+        nonlocal result
+        visited[v]=True
+        for u in G[v]:
+            if visited[u]==False:
+                DFS_visited(u,G,visited)
+        result.append(v)
+    result=[]
+    result2=[[]for i in range(len(G))]
+    visited=[False for i in range(len(G))]
+    for v in range(len(G)):
+        if visited[v]==False:
+            DFS_visited(v,G,visited)
+    new_graph = [[] for _ in range(len(G))]
+    transpose_graph(G, new_graph)
+    index=0
+    for j in range(len(visited)):
+        visited[j] = False
+    result.reverse()
+    for v in result:
+        if visited[v]==False:
+            dfs(new_graph,v,visited,index,result2)
+            index+=1
+    print(result2)
+
+def dfs(graph,v,visited,index,result2):
+    result2[index].append(v)
+    visited[v]=True
+    for u in graph[v]:
+        if visited[u]==False:
+            dfs(graph,u,visited,index,result2)
+
+
+def transpose_graph(graph, new_graph):
+    for i in range(len(graph)):
+        for j in range(len(graph[i])):
+            new_graph[graph[i][j]].append(i)
+
+
+
+
+if __name__ == '__main__':
+    A=[0,1,2,3,4,5]
+    G=[[1, 4], [2, 3], [0, 7], [4], [5], [3, 6], [3], [8], [9], [10], [6, 7]]
+    DFS(G,A)
