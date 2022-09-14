@@ -1,0 +1,25 @@
+#if z[source] is True, it means that this source is a shop, if not, there is a home, we checking how far is the nearest store from every house
+#result is a list of distance, distance[source] means distance from the nearest shop to source
+from queue import Queue
+import math
+def bfs_double(G,z):
+    q=Queue()
+    visited=[False for i in range(len(G))]
+    distance=[math.inf for i in range(len(G))]
+    for i in range(len(G)):
+        if z[i]==True:
+            q.put(i)
+            visited[i]=True
+            distance[i]=0
+    while not q.empty():
+        u=q.get()
+        for i in G[u]:
+            if visited[i]==False:
+                    visited[i]=True
+                    distance[i]=distance[u]+1
+                    q.put(i)
+    print(distance)
+if __name__ == '__main__':
+    G=[[1,2],[0,3,4],[0,3],[1,2],[1]]
+    z=[True,False,True,False,False]
+    bfs_double(G,z)
