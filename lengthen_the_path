@@ -1,0 +1,50 @@
+#we have graph and two sources s and t, we have
+#algorithm should check if exists such an edge,if we remove it, we will lengthen the longest path between the peaks
+#return this edge
+class Node:
+    def __init__(self, nazwa):
+        self.nazwa = nazwa
+        self.visited = False
+        self.d = 0
+
+
+def longer(G, s, t):
+    tab = []
+    for i in range(len(G)):
+        tab.append(Node(i))
+    q = deque()
+    q.append(s)
+    tab[s].visited = True
+    while len(q)!=0:
+        u = q.popleft()
+        for i in G[u]:
+            if not tab[i].visited:
+                tab[i].visited = True
+                tab[i].d = tab[u].d + 1
+                q.append(i)
+
+    for i in range(len(G)):
+        tab[i].visited = False
+
+    q.append(t)
+    tab[t].visited = True
+    while len(q)!=0:
+        u = q.popleft()
+        time = tab[u].d
+        if len(q)==0:
+            number = 0
+            for i in G[u]:
+                if tab[i].d < time:
+                    number += 1
+                    written = i
+
+            if number == 1:
+                return ((written, u))
+
+        for i in G[u]:
+            if not tab[i].visited:
+                tab[i].visited = True
+                if tab[i].d < czas:
+                    q.append(i)
+
+    return None
