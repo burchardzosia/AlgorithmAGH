@@ -1,0 +1,27 @@
+# maks the frog have to go through the desert
+#in the some place located are stains of fuel
+#one liter is burnt on 1 km
+#to go this desert he has to stop in some of this place(too have fuel)
+#road is very dangerous, and he has to stop as little as possible
+#his capacity is bery big
+#we get list, where tab[1] means that in first place is one liter of fuel, we have to go on lenght of list place
+#one kilometer is the distance beetween n-1 place and n
+#we return a number of stop alloys
+from queue import PriorityQueue
+def plan(tab):
+    q = PriorityQueue()
+    tab_resut = []
+    k = 1
+    for i in range(len(tab)):
+        tab[i] = -tab[i], i
+    q.put((tab[0]))
+    while k < len(tab):
+        z = q.get()
+        tab_result.append(z[1])
+        for i in range(k, min(k - z[0], len(tab)-1)):
+            if tab[i][0] != 0:
+                q.put(tab[i])
+        k -= z[0]
+
+    tab_result.sort()
+    return tab_result
