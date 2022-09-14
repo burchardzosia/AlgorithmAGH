@@ -1,0 +1,31 @@
+#we detect the cycle in graph
+def funkcja(G):
+    def DFS_visit(G, v, parent, visited):
+        visited[v]=True
+        nonlocal Flag
+        for i in G[v]:
+            if visited[i] == False:
+                parent[i] = v
+                DFS_visit(G, i, parent, visited)
+            elif parent[v]!=i:
+                Flag=True
+            else:
+                Flag=False
+        if Flag==False:
+            return False
+        else:
+            return True
+    Flag=False
+    parent = [None for j in range(len(G))]
+    visited = [False for i in range(len(G))]
+    for v in range(len(G)):
+        if visited[v]==False:
+            if DFS_visit(G,v,parent,visited)==False:
+                return False
+    return True
+
+
+if __name__ == '__main__':
+    G = [[1, 2, 5], [0, 3], [0, 4, 7, 8], [1], [2, 6], [0], [4], [2], [2]]
+    print(funkcja(G))
+
