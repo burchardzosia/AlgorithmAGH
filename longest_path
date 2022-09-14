@@ -1,0 +1,37 @@
+# we have table mxn filled with values
+#our task is searching  a longest path in this table whose values are increasing
+#our result is length of our path
+def movement(tab,x,y,n,m,helped):
+    if x==0 and y==0:
+        return 1
+    else:
+        table=[]
+        if x-1>=0 and helped[x-1][y]==True:
+            if tab[x-1][y]<tab[x][y]:
+                table.append((x-1,y))
+        if y-1>=0 and helped[x][y-1]==True:
+            if tab[x][y-1]<tab[x][y]:
+                table.append((x,y-1))
+        if x+1<n and helped[x+1][y]==True:
+            if tab[x+1][y]<tab[x][y]:
+                table.append((x+1,y))
+        if y+1<m and helped==True:
+            if tab[x][y+1]:
+                table.append((x,y+1))
+
+        maks=0
+        for i in table:
+            a=movement(tab,i[0],i[1],n,m,helped)+1
+            if a>maks:
+                maks=a
+                x_save=i[0]
+                y_save=i[1]
+        if maks!=0:
+            helped[x_save][y_save]=False
+        return maks
+
+if __name__ == '__main__':
+    tab=[[3,5,8],[6,7,9],[4,3,11]]
+    helped=[[True for i in range(3)] for j in range(3)]
+    a=movement(tab,2,2,3,3,helped)
+    print(a)
