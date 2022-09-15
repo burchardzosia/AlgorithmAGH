@@ -1,5 +1,5 @@
 from queue import Queue
-#we have a graph and some sources are lake(for examle when source 4 is a lake in list "z" z[4]=true)
+#we have a graph and some vertices are lake(for examle when source 4 is a lake in list "z" z[4]=true)
 #how many lakes we have?
 def bfs_double(G,z):
     number=0
