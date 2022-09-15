@@ -1,0 +1,26 @@
+# how many times we have to push the blocks to make them all fall off
+#we get for example (1,2) and (2,3) -it's means that we push "ONE" and then "two" fall off and "three"
+def dfs(G):
+    def DFSVisit(G,u):
+        visited[u]=True
+        for v in G[u]:
+            if not visited[v]:
+                DFSVisit(G,v)
+    number=0
+    visited=[False for i in range(len(G))]
+    for u in range(len(G)):
+        if not visited[u]:
+            number+=1
+            DFSVisit(G,u)
+    print(number-1)
+
+G=[(1,2),(2,3),(4,5),(7,8)]
+maxi=0
+for i in range(len(G)):
+    maxi=max(maxi,G[i][0],G[i][1])
+maxi=maxi+1
+tab=[[] for i in range(maxi)]
+for i in range(len(G)):
+    first=G[i][0]
+    tab[first].append(G[i][1])
+dfs(tab
