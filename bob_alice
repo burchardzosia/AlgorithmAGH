@@ -1,0 +1,44 @@
+import queue
+from queue import Queue
+#alice and bob have a truck, they have to go to the point n-1, alice should drive as little as possible
+#they have to change driver  every source
+from math import inf
+def bob_and_alice(G):
+    visited=[[False for i in range(2)]for j in range(len(G))]
+    distance=[[inf for i in range(2)]for j in range(len(G))]
+    #0 drive bob
+    #1 drive alice
+    q=queue.PriorityQueue()
+    q.put((0,1))
+    q.put((0,0))
+    distance[0][0]=0
+    distance[0][1]=0
+    while not q.empty():
+        x=q.get()
+        source=x[0]
+        driver=x[1]
+        if driver==0:
+            n_driver=1
+        else:
+            n_driver=0
+        for v in range(len(G)):
+            if G[source][v]!=0 and visited[v][n_driver]!=True:
+                if n_driver==1:
+                    if distance[v][n_driver]>distance[source][driver]+G[source][v]:
+                        distance[v][n_driver] = distance[source][driver] + G[source][v]
+                else:
+                    distance[v][n_driver]=distance[source][driver]
+
+
+                q.put((v,n_driver))
+        visited[source][n_driver]=True
+    print(distance)
+    return min(distance[len(G)-1][0],distance[len(G)-1][1])
+
+
+G2 = [[0, 5, 3, 0,0],
+      [5, 0, 3, 0,0],
+      [0, 3, 0, 10,0],
+      [0, 0, 10, 0,12],
+      [0,0,0,12,0]]
+print(bob_and_alice(G2))
