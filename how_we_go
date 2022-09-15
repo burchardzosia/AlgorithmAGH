@@ -1,6 +1,6 @@
-#we want to go from source a to source b
-#there are gas stations at some of the sources
-#the value of kilometers between source a and b is G[a][b]
+#we want to go from verdex a to verdex b
+#there are gas stations at some of the vertices
+#the value of kilometers between verdex a and b is G[a][b]
 #one kilometer-one liter of petrol
 #P-source with gas station
 #d-tank capacity
