@@ -1,5 +1,5 @@
-#if z[source] is True, it means that this source is a shop, if not, there is a home, we checking how far is the nearest store from every house
-#result is a list of distance, distance[source] means distance from the nearest shop to source
+#if z[verdex] is True, it means that this vertices is a shop, if not, there is a home, we checking how far is the nearest store from every house
+#result is a list of distance, distance[verdex] means distance from the nearest shop to verdex
 from queue import Queue
 import math
 def bfs_double(G,z):
