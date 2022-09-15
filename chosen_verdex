@@ -1,4 +1,4 @@
-#the problem is can we go to the chosen source
+#the problem is can we go to the chosen verdex
 from queue import Queue
 def bfs_double(G,z,b):
     licznik=0
