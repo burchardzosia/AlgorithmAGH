@@ -1,0 +1,64 @@
+#we have a tree,keys in this tree are located in "value"
+#we have to write algorithm, which return sum of values which are minimum possible sum of the vertex set keys that separate all leaves from the root
+#in such a way that there is exactly one vertex in the set on each path from root to leaf
+class BNode:
+    def __init__( self, value ):
+        self.left = None
+        self.right = None
+        self.parent = None
+        self.value = value
+
+def cutthetree():
+    def search(a):
+        mini=1000
+        while a.right!=None or a.left!=None:
+            if a.right!=None and a.left!=None:
+                result=search(a.right)+search(a.left)
+                mini=min(a.value,result)
+                return mini
+            mini = min(mini, a.value)
+            if a.right == None:
+                a = a.left
+            else:
+                a = a.right
+        return mini
+
+
+
+    def reku(a):
+        suma=search(a.right)+search(a.left)
+        return suma
+
+
+
+    a = BNode(10)
+    b = BNode(3)
+    b.parent=a
+    c = BNode(15)
+    c.parent = a
+    a.left=b
+    a.right=c
+    d=BNode(0)
+    b.left=d
+    e=BNode(-1)
+    d.parent=b
+    e.parent=d
+    d.left=e
+    f=BNode(-5)
+    f.parent=e
+    e.left=f
+    g=BNode(11)
+    c.left=g
+    h=BNode(-4)
+    k=BNode(-7)
+    h.left=k
+    c.right=h
+    g.parent=c
+    h.parent=c
+    i=BNode(14)
+    g.left=i
+    j=BNode(13)
+    i.left=j
+    print(reku(a))
+
+cutthetree()
