@@ -1,0 +1,64 @@
+#the machine broke down and instead of the whole word it only shows suffix of this word
+#we get list "D" with words that may be in the message and list Q- list od suffiks
+#we should count for each suffix in the list how many possible meanings there are in list D and and summing it
+
+class Node:
+  def __init__( self ):
+    self.left = None    # lewe poddrzewo
+    self.right = None   # prawe poddrzewo
+    self.x =None     # pole do wykorzystania przez studentow
+    self.y=0
+def creator(D,start,m):
+    if len(start.x)<m:
+        start.left=Node()
+        start.left.x="0"+start.x
+        creator(D,start.left,m)
+        start.right = Node()
+        start.right.x = "1" + start.x
+        creator(D, start.right, m)
+
+def marker(D,k,start):
+    start.y+=1
+    for i in range(len(D[k])-1,-1,-1):
+        if D[k][i]=="0":
+            start=start.left
+            start.y += 1
+        else:
+            start=start.right
+            start.y+=1
+
+def counting(Q,k,start):
+    if Q[k]=="":
+        return start.y
+    for i in range(len(Q[k]) - 1, -1, -1):
+
+        if Q[k][i]=="0":
+            start=start.left
+        else:
+            start=start.right
+    return start.y
+
+def kryptograf(D,Q):
+    m=0
+    for i in range(len(D)):
+        m=max(m,len(D[i]))
+    poczatek=Node()
+    poczatek.x=""
+    start=poczatek
+    creator(D,start,m)
+    for i in range(len(D)):
+        marker(D,i,poczatek)
+    sum=0
+    for i in range(len(Q)):
+        sum=sum+counting(Q,i,poczatek)
+
+    return sum
+
+
+
+
+
+
+D = ["1100", "100", "0", "1111", "1101"]
+Q = ["", "1", "11", "0", "1101"]
+print(kryptograf(D,Q))
