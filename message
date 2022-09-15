@@ -1,7 +1,7 @@
 #we have a message, which we pass to the 0 source,
-#after how many days every sources will have a messsage
-#every day every source pass message to your neighbors
-#return list that list[5]=3-means that 5 source get a message in 3 days
+#after how many days every verticess will have a messsage
+#every day every verdex pass message to your neighbors
+#return list that list[5]=3-means that 5 verdex get a message in 3 days
 def bfs(G):
     q=Queue()
     visited = [False for i in range(len(G))]
