@@ -1,7 +1,7 @@
 import queue
 from queue import Queue
 #alice and bob have a truck, they have to go to the point n-1, alice should drive as little as possible
-#they have to change driver  every source
+#they have to change driver  every verdex
 from math import inf
 def bob_and_alice(G):
     visited=[[False for i in range(2)]for j in range(len(G))]
