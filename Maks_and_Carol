@@ -1,0 +1,113 @@
+import math
+from queue import Queue
+#Karol and Max have to transport a dangerous substance
+#n-size of given list
+#Karol starts from verdex 0 and Max from n-1
+#Karol go to verdex n-1 and max to 0
+#between them there must always be a distance not less than d
+#If necessary, any of the them may stop at a given step
+#one distance means one edge
+def floyd_warsall(graph):
+    parent=[[None for i in range(len(graph))]for j in range(len(graph))]
+    for i in range(len(graph)):
+        for j in range(len(graph)):
+            if graph[i][j]!=math.inf:
+                parent[i][j]=i
+    distance=[]
+    for k in range(len(graph)):
+        distance.append([[math.inf for i in range(len(graph))]for j in range(len(graph))])
+    for i in range(len(distance)):
+        for j in range(len(distance)):
+            if i==j:
+                distance[0][i][j]=0
+            elif graph[i][j]!=math.inf:
+                distance[0][i][j]=graph[i][j]
+    for k in range(1,len(graph)):
+        for u in range(len(graph)):
+            for v in range(len(graph)):
+                a=distance[k-1][u][v]
+                b=distance[k-1][v][k-1]
+                c=distance[k-1][k-1][u]
+                distance[k][u][v]=min(a,b+c)
+    return distance
+def find(t, el):  # gj
+    n = len(t)
+    p = 0
+    k = n - 1
+    while p <= k:
+        sr = (p + k) // 2
+        if t[sr] == el:
+            return sr
+        elif t[sr] < el:
+            p = sr + 1
+        else:
+            k = sr - 1
+    return -1
+
+def Bfs(financial_graph,new_graph,s):
+    Q=Queue()
+    visited=[False for i in range(len(new_graph))]
+    parent=[False for i in range(len(new_graph))]
+    a=find(new_graph,s)
+    visited[a]=0
+    Q.put(s)
+    while not Q.empty():
+        u=Q.get()
+        for i in range(len(financial_graph)):
+            if financial_graph[i][0]==u:
+                a=find(new_graph,financial_graph[i][1])
+                b=find(new_graph,financial_graph[i][0])
+                if visited[a]==False:
+                    parent[a]=u
+                    visited[a]=visited[b]+1
+                    Q.put((financial_graph[i][1]))
+
+    a=s[0]
+    t=s[1]
+    k=(s[1],s[0])
+    b=find(new_graph,k)
+    print(visited[b])
+
+
+
+def make_graph(distance,graph,new_graph,liczba):
+    for i in range(len(graph[len(graph)-1])):
+        for j in range(len(graph)):
+            if distance[len(graph)-1][i][j]>=liczba:
+                new_graph.append((i,j))
+    financial_graph=[]
+    Flag=False
+    for i in range(len(new_graph)):
+        for j in range(len(new_graph)):
+            Flag=False
+            one=new_graph[i][0]
+            one2=new_graph[i][1]
+            two=new_graph[j][0]
+            two2=new_graph[j][1]
+            if one==two:
+                if graph[one2][two2]!=math.inf:
+                    Flag=True
+            elif one2==two2:
+                if graph[one][two]!=math.inf:
+                    Flag=True
+            else:
+                if graph[one][two] != math.inf and graph[one2][two2]!=math.inf:
+                    Flag=True
+            if one==two and one2==two2 or one==two2 and one2==two:
+                Flag=False
+            if Flag==True:
+                financial_graph.append((new_graph[i],new_graph[j]))
+
+
+
+
+    return financial_graph
+
+
+
+graph=[[math.inf,1,math.inf,1,math.inf,math.inf,math.inf],[1,math.inf,1,1,math.inf,math.inf,math.inf],[math.inf,1,math.inf,math.inf,1,math.inf,1],[1,1,math.inf,math.inf,math.inf,math.inf,math.inf],[math.inf,math.inf,1, math.inf,math.inf,1,1],[math.inf,math.inf,math.inf,math.inf,1,math.inf,1],[math.inf,math.inf,1,math.inf,1,1,math.inf]]
+distance=floyd_warsall(graph)
+new_graph=[]
+liczba=1
+a=make_graph(distance,graph,new_graph,liczba)
+Bfs(a,new_graph,new_graph[3])
