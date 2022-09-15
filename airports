@@ -1,6 +1,6 @@
 
-The smallest distance between sources s and t, apart from the praise between sources a and b-G[a][b], we can built the aiport, we pay then by the aiport in source a and airport in b
-The praise of  building aiport in source a is in P[a]
+The smallest distance between verdexes s and t, apart from the praise between verdexes a and b-G[a][b], we can built the aiport, we pay then by the aiport in verdex a and airport in b
+The praise of  building aiport in verdex a is in P[a]
 from queue import PriorityQueue
 import math
 def relax(graph,u,v,distance,parent):
