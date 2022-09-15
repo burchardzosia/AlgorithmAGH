@@ -1,0 +1,18 @@
+def Insertionsort(T):
+    n=len(T)
+    for i in range(2,n):
+        x=T[i]
+        left=1
+        right=i-1
+        while left<=right:
+            sr=(left+right)//2
+            if x<T[sr]:
+                right=sr-1
+            else:
+                left=sr+1
+        for j in range(i-1,left-1,-1):
+                T[j+1]=T[j]
+        T[left]=x
+    print(T)
+T=[1,5,2,9,12,1,2]
+Insertionsort(T)
