@@ -1,0 +1,34 @@
+import queue
+from math import inf
+
+#communication in a certain city is strangely structured
+#different fees apply for each episode
+#the cost k is subtracted from this amount
+#k is cost incurred from the beginning of the trip
+
+def strange_fees(G,s,t):
+    V=len(G)
+    visited=[False for i in range(len(G))]
+    fees=[inf for i in range(len(G))]
+    q=queue.PriorityQueue()
+    q.put(s)
+    fees[s]=0
+    visited[s]=True
+    while not q.empty():
+        u=q.get()
+        for v in range(V):
+            if G[u][v]!=0 and visited[v]==False:
+                cena=G[u][v]-fees[u]
+                if cena<0:
+                    cena=0
+                if fees[v]>fees[u]+cena:
+                    fees[v]=cena+fees[u]
+                q.put((v))
+        visited[u]=True
+    print(fees[t])
+G2 = [[0, 60, 0, 0,120],
+      [60, 0, 80, 0,0],
+      [0, 80, 0, 70,0],
+      [0, 0, 70, 0,150],
+      [120,0,0,150,0]]
+strange_fees(G2,0,4)
