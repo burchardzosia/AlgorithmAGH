@@ -1,0 +1,17 @@
+import math
+##spend the sum with the fewest coins used
+def spend_coins(tab,T,table):
+    if table[T]!=0:
+        return table[T]
+    sum=math.inf
+    for i in range(len(tab)):
+        if T-tab[i]==0:
+            return 1
+        if T-tab[i]>0:
+            sum=min(spend_coins(tab,T-tab[i],table)+1,sum)
+    table[T]=sum
+    return sum
+tab=[5,3,8,1]
+T=7
+table=[0 for i in range(8)]
+print(spend_coins(tab,T,table))
