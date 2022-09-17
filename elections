@@ -1,0 +1,48 @@
+#before each election, the election area changes (the number of inhabitants changes)
+#Each constituency is assigned the number of voters and the cost of running the campaign
+#the campaign guarantees the voice of all residents of the district
+#the party selects the districts to carry out the campaign with a budget
+class Node:
+ def __init__( self, wyborcy, koszt, fundusze ):
+    self.next = None
+    self.wyborcy = wyborcy
+    self.koszt = koszt
+    self.fundusze = fundusze
+    self.x = None
+def knapsack(elections):
+    number=0
+    start=elections
+    while start!=None:
+        start=start.next
+        number+=1
+    start=elections
+    F=[[0 for i in range(start.fundusze+1)]for i in range(number)]
+    for b in range(start.koszt,start.fundusze+1):
+        F[0][b]=start.wyborcy
+    for b in range(start.fundusze+1):
+        start=elections
+        for i in range(1,number):
+            start = start.next
+            F[i][b]=F[i-1][b]
+            if b-start.koszt>=0:
+                F[i][b]=max(F[i][b],F[i-1][b-start.koszt]+start.wyborcy)
+    return F[number-1][start.fundusze]
+def elections(T):
+    sum=0
+    for i in range(len(T)):
+        sum+=knapsack(T[i])
+    return sum
+
+wyb1okr1 = Node(3, 8, 15)
+wyb1okr2 = Node(2, 7, 15)
+wyb1okr3 = Node(4, 5, 15)
+wyb1okr1.next = wyb1okr2
+wyb1okr2.next = wyb1okr3
+wyb2okr1 = Node(4, 7, 8)
+wyb2okr2 = Node(5, 2, 8)
+wyb2okr1.next = wyb2okr2
+wyb3okr1 = Node(3, 5, 10)
+wyb3okr2 = Node(3, 5, 10)
+wyb3okr1.next = wyb3okr2
+T = [wyb1okr1, wyb2okr1, wyb3okr1]
+print(elections(T))
