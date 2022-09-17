@@ -1,0 +1,22 @@
+#a sequence of blocks is given
+#blocks can fall off in the order listed
+#we should choose the longest pull of blocks, which they form a tower as they fall, and no block protrudes beyond the previous one
+def tower(A):
+    tab=[1 for i in range(len(A))]
+    maks=1
+    for i in range(1,len(A)):
+        towerx = A[i][0]
+        towery = A[i][1]
+        for j in range(i):
+            if towerx>=A[j][0] and towery<=A[j][1]:
+                tab[i]=max(tab[j]+1,tab[i])
+                if tab[i]>maks:
+                    maks=tab[i]
+
+
+    print(maks)
+
+
+
+A = [(10,15),(8,14),(1,6),(3,10),(8,11),(6,15)]
+tower(A)
