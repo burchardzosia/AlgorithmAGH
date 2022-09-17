@@ -1,0 +1,29 @@
+#our algoritm should return true or false
+#we get two words u and v
+#we check if we can form a word w out of these words
+#It is not necessary to use all letters
+def counting_Sort(arr):
+    n=len(arr)
+    output=[0]*len(arr)
+    count=[0]*26
+    for i in range(len(arr)):
+        index=ord(arr[i])-97
+        count[index]+=1
+    return count
+def bool_possible(u,w,v):
+    count_u=counting_Sort(u)
+    count_v=counting_Sort(v)
+    count_w=counting_Sort(w)
+    for i in range(len(count_u)):
+        count_w[i]=count_w[i]+count_u[i]
+    for i in range(len(count_v)):
+        if count_v[i]!=0:
+            count_w[i]-=count_v[i]
+        if count_w[i]<0:
+            return False
+    return True
+
+u="malo"
+b="za"
+w="zlalo"
+print(bool_possible(u,b,w))
