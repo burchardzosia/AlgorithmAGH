@@ -1,0 +1,23 @@
+#topological sort
+def dfs(G):
+    result=[]
+    def DFSVisit(G,u):
+        nonlocal time
+        time+=1
+        visited[u]=time
+        for v in G[u]:
+            if not visited[v]:
+                parent[v]=u
+                DFSVisit(G,v)
+        result.append(u)
+    parent=[None for i in range(len(G))]
+    visited=[False for i in range(len(G))]
+    time=0
+    for u in range(len(G)):
+        if not visited[u]:
+            DFSVisit(G,u)
+    result.reverse()
+    print(result)
+
+g = [[1],[0,2,4],[1,3],[2,4],[1,3,0]]
+dfs(g)
